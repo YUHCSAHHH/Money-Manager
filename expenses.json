@@ -1,0 +1,37 @@
+[
+    {
+        "Date": "2026-01-01",
+        "Category": "Food",
+        "Amount": 2000.0
+    },
+    {
+        "Date": "2026-01-07",
+        "Category": "Travel",
+        "Amount": 1234.0
+    },
+    {
+        "Date": "2026-02-12",
+        "Category": "Shopping",
+        "Amount": 3245.0
+    },
+    {
+        "Date": "2002-02-02",
+        "Category": "Bills",
+        "Amount": 432345.0
+    },
+    {
+        "Date": "2000-01-02",
+        "Category": "Food",
+        "Amount": 2344.0
+    },
+    {
+        "Date": "2000-09-12",
+        "Category": "Food",
+        "Amount": 34244.0
+    },
+    {
+        "Date": "2000-09-12",
+        "Category": "Travel",
+        "Amount": 453534.0
+    }
+]
