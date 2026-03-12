@@ -24,7 +24,7 @@ def save_data(data):
 
 
 def line():
-    print("\n" + "="*40)
+    print("\n" + "="*45)
 
 
 # ---------------------------
@@ -93,10 +93,82 @@ def view_expenses():
 
     df = pd.DataFrame(data)
 
+    df.index += 1
+
     df["Amount"] = df["Amount"].map(lambda x: f"₹{x}")
 
     print()
-    print(df.to_string(index=False))
+    print(df.to_string())
+
+
+# ---------------------------
+# Edit Expense
+# ---------------------------
+
+def edit_expense():
+
+    data = load_data()
+
+    if not data:
+        print("No expenses to edit")
+        return
+
+    view_expenses()
+
+    try:
+        index = int(input("\nEnter expense number to edit: ")) - 1
+        expense = data[index]
+    except:
+        print("Invalid selection")
+        return
+
+    print("\nLeave blank to keep current value")
+
+    new_date = input(f"Date ({expense['Date']}): ")
+    new_category = input(f"Category ({expense['Category']}): ")
+    new_amount = input(f"Amount ({expense['Amount']}): ")
+
+    if new_date:
+        expense["Date"] = new_date
+
+    if new_category:
+        expense["Category"] = new_category
+
+    if new_amount:
+        try:
+            expense["Amount"] = float(new_amount)
+        except:
+            print("Invalid amount")
+
+    save_data(data)
+
+    print("Expense updated successfully!")
+
+
+# ---------------------------
+# Delete Expense
+# ---------------------------
+
+def delete_expense():
+
+    data = load_data()
+
+    if not data:
+        print("No expenses to delete")
+        return
+
+    view_expenses()
+
+    try:
+        index = int(input("\nEnter expense number to delete: ")) - 1
+        removed = data.pop(index)
+    except:
+        print("Invalid selection")
+        return
+
+    save_data(data)
+
+    print(f"Deleted expense: ₹{removed['Amount']} ({removed['Category']})")
 
 
 # ---------------------------
@@ -214,10 +286,12 @@ def menu():
 
         print("1. Add Expense")
         print("2. View Expenses")
-        print("3. Category Chart")
-        print("4. Monthly Chart")
-        print("5. Total Expense")
-        print("6. Exit")
+        print("3. Edit Expense")
+        print("4. Delete Expense")
+        print("5. Category Chart")
+        print("6. Monthly Chart")
+        print("7. Total Expense")
+        print("8. Exit")
 
         choice = input("\nSelect option: ")
 
@@ -228,15 +302,21 @@ def menu():
             view_expenses()
 
         elif choice == "3":
-            category_chart()
+            edit_expense()
 
         elif choice == "4":
-            monthly_chart()
+            delete_expense()
 
         elif choice == "5":
-            total_expense()
+            category_chart()
 
         elif choice == "6":
+            monthly_chart()
+
+        elif choice == "7":
+            total_expense()
+
+        elif choice == "8":
             print("Exiting program...")
             break
 
